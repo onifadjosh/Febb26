@@ -54,78 +54,78 @@
 
 // export default App
 
-import React, { useState } from 'react'
-import Button from './components/Button'
-import AddUser from './components/AddUser'
-import DisplayUser from './components/DisplayUser'
+// import React, { useState } from 'react'
+// import Button from './components/Button'
+// import AddUser from './components/AddUser'
+// import DisplayUser from './components/DisplayUser'
 
-const App = () => {
+// const App = () => {
  
-  const [allUsers, setallUsers] = useState([])
+//   const [allUsers, setallUsers] = useState([])
 
 
 
-  // const seeValue=(event)=>{
-  //   console.log(event.target.value);
-  //   setfirstName(event.target.value)
-  // }
+//   // const seeValue=(event)=>{
+//   //   console.log(event.target.value);
+//   //   setfirstName(event.target.value)
+//   // }
 
-  const submitUser=(user)=>{
-    // console.log('heelo');
-    // let user = {
-    //   firstName,
-    //   lastName,
-    //   email,
-    //   profilePicture
-    // }
-    console.log(user);
+//   const submitUser=(user)=>{
+//     // console.log('heelo');
+//     // let user = {
+//     //   firstName,
+//     //   lastName,
+//     //   email,
+//     //   profilePicture
+//     // }
+//     console.log(user);
 
-    let fruits = ['mango', 'agbalumo', 'orange']
-    let newFruits = [...fruits, 'Grape']
-    let newAllUsers= [...allUsers,user ]
-    setallUsers(newAllUsers)
-  }
-
-
-  const deleteUser=(index)=>{
-    let newAllUsers= [...allUsers]
-    newAllUsers.splice(index, 1)
-    setallUsers(newAllUsers)
-  }
-
-  const editUser=(index, user)=>{
-    // let user = {
-    //   firstName,
-    //   lastName,
-    //   email,
-    //   profilePicture
-    // }
-    let newAllUsers= [...allUsers]
-    newAllUsers.splice(index, 1, user)
-    setallUsers(newAllUsers)
-  }
-
-  const shout=(name)=>{
-    alert(`shoutinggggggggggggggg ${name}`)
-  }
-  return (
-    <>
+//     let fruits = ['mango', 'agbalumo', 'orange']
+//     let newFruits = [...fruits, 'Grape']
+//     let newAllUsers= [...allUsers,user ]
+//     setallUsers(newAllUsers)
+//   }
 
 
-    <Button title="Stop" color="btn-danger" func={shout}/>
-    <Button title="Go" color="btn-success"/>
-    <Button title="Get ready" color="btn-warning"/>
+//   const deleteUser=(index)=>{
+//     let newAllUsers= [...allUsers]
+//     newAllUsers.splice(index, 1)
+//     setallUsers(newAllUsers)
+//   }
 
-    <br />
+//   const editUser=(index, user)=>{
+//     // let user = {
+//     //   firstName,
+//     //   lastName,
+//     //   email,
+//     //   profilePicture
+//     // }
+//     let newAllUsers= [...allUsers]
+//     newAllUsers.splice(index, 1, user)
+//     setallUsers(newAllUsers)
+//   }
+
+//   const shout=(name)=>{
+//     alert(`shoutinggggggggggggggg ${name}`)
+//   }
+//   return (
+//     <>
+
+
+//     <Button title="Stop" color="btn-danger" func={shout}/>
+//     <Button title="Go" color="btn-success"/>
+//     <Button title="Get ready" color="btn-warning"/>
+
+//     <br />
    
 
-  <AddUser submitUser={submitUser}/>  
+//   <AddUser submitUser={submitUser}/>  
 
-   <hr />
+//    <hr />
 
  
 
-      <DisplayUser allUsers={allUsers} deleteUser={deleteUser} editUser={editUser}/>
+//       <DisplayUser allUsers={allUsers} deleteUser={deleteUser} editUser={editUser}/>
 
 
 
@@ -134,6 +134,48 @@ const App = () => {
 
 
 
+//     </>
+//   )
+// }
+
+// export default App
+
+
+import React from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import Home from './pages/Home'
+import About from './pages/About'
+import NotFound from './pages/NotFound'
+import Contact from './pages/Contact'
+import Navbar from './components/Navbar'
+import Profile from './pages/Profile'
+import Fetch from './pages/Fetch'
+
+const App = () => {
+  return (
+    <>
+      <Navbar/>
+      <Routes>
+          <Route index element={<Home/>}/>
+
+          <Route path='/about' element={<About/>}/>
+
+          <Route path='/contact' element={<Contact/>}/>
+          <Route path='/fetch' element={<Fetch/>}/>
+
+          {/* programmatic redirection */}
+          <Route path="/sp-contact" element={<Navigate to={'/contact'}/>}/>
+
+          {/* dynamic routes */}
+          <Route path='/profile/:username' element={<Profile/>}/>
+
+
+          {/* nested/children routes */}
+
+
+          {/* wildcard routing */}
+          <Route path='*' element={<NotFound/>}/>
+      </Routes>
     </>
   )
 }
