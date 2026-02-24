@@ -1,13 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const appSlice =createSlice({
-    name:"appslice",
+    name:"appSlice",
     initialState:{
-        firstName:"",
+        firstName:"Pampam",
         lastName:"",
         email:"",
-        friends:[]
+        friends:['nony', 'cynthia', "lovely", ]
     },
+
+    reducers:{
+       changeFirst:(state)=>{
+            state.firstName="Josh"
+       } ,
+
+       changeNameWithSome:(state, actions)=>{
+            state.firstName= actions.payload
+       }
+    }
 
     
 })
+
+export default appSlice.reducer
+
+export const {changeFirst, changeNameWithSome} = appSlice.actions

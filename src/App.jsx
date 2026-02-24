@@ -151,6 +151,7 @@ import Navbar from './components/Navbar'
 import Profile from './pages/Profile'
 import Fetch from './pages/Fetch'
 import Formikk from './pages/Formikk'
+import LoginPage from './pages/Login'
 
 const App = () => {
   return (
@@ -164,6 +165,7 @@ const App = () => {
           <Route path='/contact' element={<Contact/>}/>
           <Route path='/fetch' element={<Fetch/>}/>
           <Route path='/formikk' element={<Formikk/>}/>
+          <Route path='/login' element={<LoginPage/>}/>
 
           {/* programmatic redirection */}
           <Route path="/sp-contact" element={<Navigate to={'/contact'}/>}/>
