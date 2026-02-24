@@ -1,7 +1,13 @@
 import React from 'react';
 import { useFormik } from 'formik';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
+import Cookies from 'universal-cookie';
 
 const LoginPage = () => {
+    let navigate = useNavigate()
+    let cookies = new Cookies()
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -25,8 +31,31 @@ const LoginPage = () => {
       
       return errors;
     },
-    onSubmit:(values)=>{
-        console.log(values);
+    onSubmit:async(values)=>{
+        try {
+            console.log(values);
+        let response = await axios.post("http://localhost:5008/api/v1/login", {
+            email:values.email,
+            password:values.password
+        })
+
+        console.log(response);
+        alert(response.data.message)
+
+        const decoded = jwtDecode(response.data.token)
+        localStorage.setItem('token', response.data.token)
+        cookies.set("token", response.data.token, {
+            expires:new Date(decoded.exp*1000)
+        })
+        
+        console.log(decoded);
+        
+        navigate('/fetch')
+        } catch (error) {
+            console.log(error);
+            
+        }
+        
         
     }
   });

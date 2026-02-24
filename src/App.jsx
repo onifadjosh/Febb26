@@ -21,8 +21,6 @@
 //     <Navbar/>
 //       <h1 style={designObj}>My first React app</h1>
 
-
-
 //       <h1 className='bg-primary text-warning'>{nameOfUser}</h1>
 
 //       <Button/>
@@ -35,15 +33,11 @@
 //       <Button/>
 //       <Button/>
 
-
-
 //       <button  className='btn btn-dark' onClick={()=>setnum(num+1)}>
 //        {num}
 //       </button>
 
-
 //       <h1>{name}</h1>
-
 
 //       <button className='btn btn-dark' onClick={()=>setname("Josh")}>
 //         click me to change name
@@ -60,10 +54,8 @@
 // import DisplayUser from './components/DisplayUser'
 
 // const App = () => {
- 
+
 //   const [allUsers, setallUsers] = useState([])
-
-
 
 //   // const seeValue=(event)=>{
 //   //   console.log(event.target.value);
@@ -85,7 +77,6 @@
 //     let newAllUsers= [...allUsers,user ]
 //     setallUsers(newAllUsers)
 //   }
-
 
 //   const deleteUser=(index)=>{
 //     let newAllUsers= [...allUsers]
@@ -111,28 +102,17 @@
 //   return (
 //     <>
 
-
 //     <Button title="Stop" color="btn-danger" func={shout}/>
 //     <Button title="Go" color="btn-success"/>
 //     <Button title="Get ready" color="btn-warning"/>
 
 //     <br />
-   
 
-//   <AddUser submitUser={submitUser}/>  
+//   <AddUser submitUser={submitUser}/>
 
 //    <hr />
 
- 
-
 //       <DisplayUser allUsers={allUsers} deleteUser={deleteUser} editUser={editUser}/>
-
-
-
-
-
-
-
 
 //     </>
 //   )
@@ -140,48 +120,54 @@
 
 // export default App
 
-
-import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
-import Home from './pages/Home'
-import About from './pages/About'
-import NotFound from './pages/NotFound'
-import Contact from './pages/Contact'
-import Navbar from './components/Navbar'
-import Profile from './pages/Profile'
-import Fetch from './pages/Fetch'
-import Formikk from './pages/Formikk'
-import LoginPage from './pages/Login'
+import React from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import NotFound from "./pages/NotFound";
+import Contact from "./pages/Contact";
+import Navbar from "./components/Navbar";
+import Profile from "./pages/Profile";
+import Fetch from "./pages/Fetch";
+import Formikk from "./pages/Formikk";
+import LoginPage from "./pages/Login";
+import AuthGuard from "./auth/AuthGuard";
+import Cookies from "universal-cookie";
 
 const App = () => {
+  const cookies = new Cookies();
+  // console.log(cookies.get("token"));
+
+  const isAuth = cookies.get("token");
+
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <Routes>
-          <Route index element={<Home/>}/>
+        <Route path="/login" element={<LoginPage />} />
+        <Route index element={<Home />} />
 
-          <Route path='/about' element={<About/>}/>
+        <Route element={<AuthGuard isAuth={isAuth} />}>
+          <Route path="/about" element={<About />} />
 
-          <Route path='/contact' element={<Contact/>}/>
-          <Route path='/fetch' element={<Fetch/>}/>
-          <Route path='/formikk' element={<Formikk/>}/>
-          <Route path='/login' element={<LoginPage/>}/>
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/fetch" element={<Fetch />} />
+          <Route path="/formikk" element={<Formikk />} />
 
           {/* programmatic redirection */}
-          <Route path="/sp-contact" element={<Navigate to={'/contact'}/>}/>
+          <Route path="/sp-contact" element={<Navigate to={"/contact"} />} />
 
           {/* dynamic routes */}
-          <Route path='/profile/:username' element={<Profile/>}/>
+          <Route path="/profile/:username" element={<Profile />} />
+        </Route>
 
+        {/* nested/children routes */}
 
-          {/* nested/children routes */}
-
-
-          {/* wildcard routing */}
-          <Route path='*' element={<NotFound/>}/>
+        {/* wildcard routing */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
