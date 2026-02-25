@@ -133,6 +133,7 @@ import Formikk from "./pages/Formikk";
 import LoginPage from "./pages/Login";
 import AuthGuard from "./auth/AuthGuard";
 import Cookies from "universal-cookie";
+import AddProductPage from "./pages/AddProduct";
 
 const App = () => {
   const cookies = new Cookies();
@@ -153,6 +154,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/fetch" element={<Fetch />} />
           <Route path="/formikk" element={<Formikk />} />
+          <Route path="/addProduct" element={<AddProductPage />} />
 
           {/* programmatic redirection */}
           <Route path="/sp-contact" element={<Navigate to={"/contact"} />} />
