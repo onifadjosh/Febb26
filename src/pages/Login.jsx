@@ -34,7 +34,7 @@ const LoginPage = () => {
     onSubmit:async(values)=>{
         try {
             console.log(values);
-        let response = await axios.post("http://localhost:5008/api/v1/login", {
+        let response = await axios.post("https://feb26-five.vercel.app/api/v1/login", {
             email:values.email,
             password:values.password
         })
