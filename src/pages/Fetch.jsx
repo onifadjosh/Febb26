@@ -7,6 +7,7 @@ const Fetch = () => {
     const [allUsers, setallUsers] = useState([])
     const [filtered, setfiltered] = useState([])
     const [searched, setsearched] = useState("")
+    const [loading, setloading] = useState(true)
     
 
 
@@ -15,12 +16,15 @@ const Fetch = () => {
 
         const makeRequest=async()=>{
             try {
+                setloading(true)
                 let data = await axios.get('https://jsonplaceholder.typicode.com/users')
                 console.log(data.data);
                 setallUsers(data.data)
+                    setloading(false)
                 
             } catch (error) {
                 console.log(error);
+                setloading(false)
                 
             }
         }
@@ -54,21 +58,25 @@ const Fetch = () => {
         <button className='btn btn-dark' onClick={()=>setnumber(number+1)}>{number}</button>
 
 
-       <div className='d-flex flex-wrap gap-3'>
        {
-            filtered.map((user, index)=>(
-                <div class="card" style={{width: "18rem"}} key={index}>
-                    <div class="card-body" >
-                        <h5 class="card-title">{user.name}</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">{user.username}</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                    </div>
-                </div>
-            ))
-        }
-       </div>
+        loading? <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>:<div className='d-flex flex-wrap gap-3'>
+        {
+             filtered.map((user, index)=>(
+                 <div class="card" style={{width: "18rem"}} key={index}>
+                     <div class="card-body" >
+                         <h5 class="card-title">{user.name}</h5>
+                         <h6 class="card-subtitle mb-2 text-body-secondary">{user.username}</h6>
+                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                         <a href="#" class="card-link">Card link</a>
+                         <a href="#" class="card-link">Another link</a>
+                     </div>
+                 </div>
+             ))
+         }
+        </div>
+       }
     </div>
   )
 }
